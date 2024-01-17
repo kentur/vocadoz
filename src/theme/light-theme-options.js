@@ -54,9 +54,9 @@ const divider = '#E6E8F0'
 // main: '#EF7822',
 // secondary main: '#ff903f',
 const primary = {
-    main: '#FF7918',
-    light: 'rgba(255, 121, 24, 0.8)',
-    dark: '#a3460a',
+    main: '#C82D3E',
+    light: 'rgba(200, 45, 62, 0.8)',
+    dark: '#A22432',
     contrastText: '#FFFFFF',
     midPrimary: ' #FFF5ED',
     overLay: '#000000',
@@ -148,7 +148,7 @@ export const lightThemeOptions = {
                 root: {
                     color: '#FFFFFF',
                     '&.MuiButton-text': {
-                        color: '#EF7822',
+                        color: '#C82D3E',
                     },
                 },
             },
