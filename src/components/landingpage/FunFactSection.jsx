@@ -155,8 +155,8 @@ const FunFactSection = ({ react_feature, global, isLoading, fun_base_url }) => {
                 ) : (
                     <>
                         <Slider {...landingFeatureSettings} ref={discountRef}>
-                            {[...Array(3)].map((item) => {
-                                return <FunSectionShimmer />
+                            {[...Array(3)].map((item, index) => {
+                                return <FunSectionShimmer key={index} />
                             })}
                         </Slider>
                     </>

@@ -90,7 +90,7 @@ const RouteLinks = (props) => {
                 return (
                     <CustomColouredTypography
                         key={index}
-                        fontsize={isXSmall ? '14px' : '14px'}
+                        fontSize={isXSmall ? '14px' : '14px'}
                         color="whiteContainer.main"
                         onClick={() => handleClick(item.link, item.value)}
                         sx={{
@@ -106,7 +106,7 @@ const RouteLinks = (props) => {
             })}
             {title === 'Other' && global?.refund_policy_status !== 0 && (
                 <CustomColouredTypography
-                    fontsize={isXSmall ? '13px' : '14px'}
+                    fontSize={isXSmall ? '13px' : '14px'}
                     color="whiteContainer.main"
                     onClick={() => handleClickToRoute('/refund-policy')}
                     sx={{
@@ -121,7 +121,7 @@ const RouteLinks = (props) => {
             )}
             {title === 'Other' && global?.cancellation_policy_status !== 0 && (
                 <CustomColouredTypography
-                    fontsize={isXSmall ? '13px' : '14px'}
+                    fontSize={isXSmall ? '13px' : '14px'}
                     color="whiteContainer.main"
                     onClick={() => handleClickToRoute('/cancellation-policy')}
                     sx={{
@@ -133,10 +133,10 @@ const RouteLinks = (props) => {
                 >
                     {t('Cancellation Policy')}
                 </CustomColouredTypography>
-            )}
+            )}  
             {title === 'Other' && global?.shipping_policy_status !== 0 && (
                 <CustomColouredTypography
-                    fontsize={isXSmall ? '13px' : '14px'}
+                    fontSize={isXSmall ? '13px' : '14px'}
                     color="whiteContainer.main"
                     onClick={() => handleClickToRoute('/shipping-policy')}
                     sx={{
