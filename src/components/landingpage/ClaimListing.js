@@ -38,13 +38,14 @@ color: white;
 const StrongBlue = styled.strong`
 color:#252961;`
 
-const ButtonBlue = styled.button`
+const ButtonBlue = styled.a`
 border: none;
 color: white;
 font-size: 24px;
 margin-top: 20px;
 font-weight: 400;
 padding:5px 30px;
+text-decoration: none;
 border-radius: 50px;
 background-color: #252961;
 background-image: linear-gradient(90deg, #252961 0%, #3765ec 100%);
@@ -74,7 +75,7 @@ const ClaimListing = () => {
                                     </HeadlineClaimGold>
                                 </Container>
                                 <Container className='d-flex justify-content-center'>
-                                    <ButtonBlue>CLAIM NOW!</ButtonBlue>
+                                    <ButtonBlue target='_blank' href='https://dibest-restaurant-and-foods.netlify.app/'>CLAIM NOW!</ButtonBlue>
                                 </Container>
                             </ClaimGold>
                         </Container>
