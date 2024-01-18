@@ -161,12 +161,12 @@ export const ImageContainer = styled(Box)(({ theme }) => ({
     },
 }))
 export const CustomColouredTypography = styled(Typography)(
-    ({ theme, color, fontsize, smallFont }) => ({
+    ({ theme, color, fontSize, smallFont }) => ({
         color: color ? color : theme.palette.primary.main,
-        fontSize: fontsize,
+        fontSize: fontSize,
         [theme.breakpoints.down('md')]: {
             // styles
-            fontSize: smallFont ? smallFont : fontsize,
+            fontSize: smallFont ? smallFont : fontSize,
         },
     })
 )
@@ -436,7 +436,7 @@ export const CustomImageContainerStyled = styled(Box)(
         height,
         objectFit,
         minwidth,
-        borderRadu,
+        borderRadius,
         smMb,
         smMaxWidth,
         mdHeight,
@@ -467,7 +467,7 @@ export const CustomImageContainerStyled = styled(Box)(
             width: '100% ',
             height: '100%',
             objectFit: objectFit ? objectFit : 'contain',
-            borderRadius: borderRadu,
+            borderRadius: borderRadius,
         },
     })
 )

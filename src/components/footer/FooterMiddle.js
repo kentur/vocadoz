@@ -46,7 +46,7 @@ const FooterMiddle = ({ landingPageLink, landingPageData }) => {
                         xs={12}
                         sm={6}
                         md={4}
-                        align={isSmall && 'center'}
+                        align={isSmall ? 'center' : 'start'}
                     >
                         <CustomStackFullWidth
                             spacing={4}
@@ -84,7 +84,7 @@ const FooterMiddle = ({ landingPageLink, landingPageData }) => {
                         xs={12}
                         sm={6}
                         md={2}
-                        align={isSmall && 'center'}
+                        align={isSmall ? 'center' : 'start'}
                     >
                         <RouteLinks
                             token={token}
@@ -98,7 +98,7 @@ const FooterMiddle = ({ landingPageLink, landingPageData }) => {
                         xs={12}
                         sm={6}
                         md={3}
-                        align={isSmall && 'center'}
+                        align={isSmall ? 'center' : 'start'}
                     >
                         <RouteLinks
                             token={token}
@@ -112,7 +112,7 @@ const FooterMiddle = ({ landingPageLink, landingPageData }) => {
                         xs={12}
                         sm={6}
                         md={3}
-                        align={isSmall && 'center'}
+                        align={isSmall ? 'center' : 'start'}
                     >
                         <RouteLinks
                             token={token}
