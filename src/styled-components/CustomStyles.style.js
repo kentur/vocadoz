@@ -325,7 +325,7 @@ export const SearchInputBase = styled(InputBase)(({ theme }) => ({
 }))
 export const Logo = styled('div')(({ theme, height, width }) => ({
     width: width,
-    height: '24px',
+    height: height,
     justifyContent: 'center',
     maxWidth: '100px',
     position: 'relative',
