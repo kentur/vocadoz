@@ -137,7 +137,8 @@ const TopNav = ({ cartListRefetch }) => {
                                 <CustomStackForLoaction direction="row" spacing={2}>
                                     <LogoSide
                                         global={global}
-                                        width="auto"
+                                        height="3.5rem"
+                                        width="100"
                                         businessLogo={businessLogo}
                                     />
 

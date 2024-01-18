@@ -48,7 +48,7 @@ const skeletonColorAfter =
     'linear-gradient(78.58deg, #F5F6F8 3.23%, #FDFDFD 53.13%, #F6F7F8 100%)'
 
 const primary = {
-    main: '#EF7822',
+    main: '#C82D3E',
     light: '#ff6700',
     dark: '#A22432',
     contrastText: neutral[900],
@@ -138,7 +138,7 @@ export const darkThemeOptions = {
         MuiButton: {
             styleOverrides: {
                 root: {
-                    color: '#FFFFFF',
+                    color: '#C82D3E',
                 },
             },
         },
