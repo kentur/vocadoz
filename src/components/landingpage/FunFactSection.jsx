@@ -27,21 +27,6 @@ import 'slick-carousel/slick/slick-theme.css'
 import { HandleNext, HandlePrev } from '../CustomSliderIcon'
 import { landingFeatureSettings } from './landingFeatureSettings'
 import LandingFeatureSvg1 from './link-section/LandingFeatureSvg1'
-import styled from 'styled-components'
-
-const Headline = styled.h3`
-    margin-top: 50px;
-    margin-bottom: 20px;
-    color: '#191b5e';
-`
-
-const Description = styled.span`
-    margin-bottom: 20px;
-    color: '#414575';
-`
-const StrongGold = styled.strong`
-    color: #a78236;
-`
 
 const FunFactSection = ({ react_feature, global, isLoading, fun_base_url }) => {
     const [featureData, setFeatureData] = useState([])
@@ -67,24 +52,7 @@ const FunFactSection = ({ react_feature, global, isLoading, fun_base_url }) => {
     }
     const mainComponent = () => {
         return (
-            <CustomStackFullWidth
-                sx={{ marginTop: '25px', textAlign: 'center' }}
-            >
-                <Headline>
-                    How Does{' '}
-                    <StrongGold>DiBest Spot Restaurant and Food</StrongGold>{' '}
-                    Work?
-                </Headline>
-                <Description>
-                    Designed with every type of restaurant business in mind,
-                    providing a seamless <br /> solution for easy management and
-                    automation of your restaurant operations.
-                </Description>
-
-                <Headline>
-                    <StrongGold>ORDER PROCESS</StrongGold>
-                </Headline>
-
+            <CustomStackFullWidth sx={{ marginTop: '25px' }}>
                 {!isLoading ? (
                     <SliderCustom
                         languageDirection={languageDirection}
