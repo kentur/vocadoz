@@ -6,6 +6,7 @@ import FunFactSection from './FunFactSection'
 import BannerSection from './BannerSection'
 import LinkSection from './link-section/LinkSection'
 import DownloadSection from './DownloadSection'
+import ClaimListing from './ClaimListing'
 
 import DiscountBanner from './DiscountBanner'
 import { useGetLandingPageData } from '../../hooks/react-query/landing-page/useGetLandingPageData'
@@ -69,6 +70,7 @@ const LandingPage = (props) => {
                 handleModalClose={handleModalClose}
                 isLoading={isLoading}
             />
+            <ClaimListing/>
             <FunFactSection
                 global={global}
                 react_feature={landingPageData?.react_services}
