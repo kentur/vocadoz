@@ -58,28 +58,35 @@ const ClaimListing = () => {
             <CustomStackFullWidth
                 sx={{ mt: { xs: '10px', sm: '20px', md: '25px' } }}
             >
-                        <ClaimContainer>
-                        {/* <Container className='d-flex justify-content-center text-center'>
-                            <Headline>
-                                From <StrongGold>Food Trucks</StrongGold> to a <StrongGold>Five Star Restaurant!</StrongGold>
-                            </Headline>
-                        </Container>
-                        <Container className='d-flex justify-content-center'>
-                            <HrGold/>
-                        </Container> */}
-                        <Container fluid  className='d-flex justify-content-center'>
-                            <ClaimGold>
-                                <Container className='d-flex justify-content-center text-center'>
-                                    <HeadlineClaimGold>
-                                        Claim Your Listing <StrongBlue>FREE for 90 Days!</StrongBlue>
-                                    </HeadlineClaimGold>
-                                </Container>
-                                <Container className='d-flex justify-content-center'>
-                                    <ButtonBlue target='_blank' href='https://dibest-restaurant-and-foods.netlify.app/'>CLAIM NOW!</ButtonBlue>
-                                </Container>
-                            </ClaimGold>
-                        </Container>
-                    </ClaimContainer>
+                <ClaimContainer>
+                    <Container className="d-flex justify-content-center text-center">
+                        <Headline>
+                            From <StrongGold>Food Trucks</StrongGold> to a{' '}
+                            <StrongGold>Five Star Restaurant!</StrongGold>
+                        </Headline>
+                    </Container>
+                    <Container className="d-flex justify-content-center">
+                        <HrGold />
+                    </Container>
+                    <Container fluid className="d-flex justify-content-center">
+                        <ClaimGold>
+                            <Container className="d-flex justify-content-center text-center">
+                                <HeadlineClaimGold>
+                                    Claim Your Listing{' '}
+                                    <StrongBlue>FREE for 90 Days!</StrongBlue>
+                                </HeadlineClaimGold>
+                            </Container>
+                            <Container className="d-flex justify-content-center">
+                                <ButtonBlue
+                                    target="_blank"
+                                    href="https://dibest-restaurant-and-foods.netlify.app/"
+                                >
+                                    CLAIM NOW!
+                                </ButtonBlue>
+                            </Container>
+                        </ClaimGold>
+                    </Container>
+                </ClaimContainer>
             </CustomStackFullWidth>
         </CustomContainer>
     )

@@ -70,7 +70,6 @@ const LandingPage = (props) => {
                 handleModalClose={handleModalClose}
                 isLoading={isLoading}
             />
-            <ClaimListing/>
             <FunFactSection
                 global={global}
                 react_feature={landingPageData?.react_services}
@@ -79,6 +78,7 @@ const LandingPage = (props) => {
                     landingPageData?.base_urls?.react_services_image_url
                 }
             />
+            <ClaimListing />
             <BannerSection
                 global={global}
                 banner_section_half={landingPageData?.react_promotional_banner}
