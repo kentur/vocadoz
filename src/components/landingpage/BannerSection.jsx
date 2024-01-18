@@ -296,12 +296,13 @@ const BannerSection = ({
                             </SliderCustom>
                         ) : (
                             <Slider ref={discountRef} {...settings}>
-                                {[...Array(3)].map((item) => {
+                                {[...Array(3)].map((item, key) => {
                                     return (
                                         <Stack
                                             maxWidth="375px"
                                             width="100%"
                                             height="155px"
+                                            key={key}
                                         >
                                             <Skeleton
                                                 variant="rectangular"
