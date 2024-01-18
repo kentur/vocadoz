@@ -34,16 +34,18 @@ background-image: linear-gradient(90deg, #a78236 0%, #D5BB80 100%);
 `
 const HeadlineClaimGold = styled.h1`
 color: white;
+font-size: 28px;
 `
 const StrongBlue = styled.strong`
-color:#252961;`
+color:#252961;
+`
 
 const ButtonBlue = styled.a`
 border: none;
 color: white;
-font-size: 24px;
+font-size: 36px;
 margin-top: 20px;
-font-weight: 400;
+font-weight: 500;
 padding:5px 30px;
 text-decoration: none;
 border-radius: 50px;
