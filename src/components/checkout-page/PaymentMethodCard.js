@@ -38,7 +38,7 @@ const PaymentMethodCard = (props) => {
     const dispatch = useDispatch();
     const isSmall = useMediaQuery(theme.breakpoints.down('md'))
     const handleChange = () => {
-        getPaymentMethod({ name: type, image: image })
+        getPaymentMethod({ name: paymentType, image: image })
         dispatch(setOfflineInfoStep(0))
     }
 
