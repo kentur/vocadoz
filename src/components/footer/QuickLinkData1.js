@@ -1,11 +1,11 @@
 export const QuickLinkData1 = [
     {
-        name: 'Popular Restaurants',
+        name: 'Free Subscription',
         value: 'popular',
         link: '/restaurant/popular',
     },
     {
-        name: 'Best Reviewed Foods',
+        name: 'Basic Subscription',
         value: 'best-reviewed-foods',
         link: '/products/best-reviewed-foods',
     },
@@ -15,7 +15,7 @@ export const QuickLinkData1 = [
     //     link: '/products/popular',
     // },
     {
-        name: 'New Restaurants',
+        name: 'Standard Subscription',
         value: 'latest',
         link: '/restaurant/latest',
     },
