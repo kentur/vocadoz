@@ -718,6 +718,13 @@
   resolved "https://registry.yarnpkg.com/@floating-ui/utils/-/utils-0.1.6.tgz#22958c042e10b67463997bd6ea7115fe28cbcaf9"
   integrity sha512-OfX7E2oUDYxtBvsuS4e/jSn4Q9Qb6DzgeYtsAdkPZ47znpoNsMgZw0+tVijiv3uGNR6dgNlty6r9rzIzHjtd/A==
 
+"@google-pay/button-react@^3.0.10":
+  version "3.0.10"
+  resolved "https://registry.yarnpkg.com/@google-pay/button-react/-/button-react-3.0.10.tgz#e2e75e5c8e45fb882a3a0d1290ed4e6f0350e657"
+  integrity sha512-6lFESkpkIqnXGbbeD+kZ696+MJI+TrZYFBTuGpSvf98nvaE7fHffeV34i2ebZBqUkLi/4HicoVc8sG71KWKy+g==
+  dependencies:
+    "@types/googlepay" "^0.7.0"
+
 "@googlemaps/js-api-loader@1.16.2", "@googlemaps/js-api-loader@^1.13.8":
   version "1.16.2"
   resolved "https://registry.yarnpkg.com/@googlemaps/js-api-loader/-/js-api-loader-1.16.2.tgz#3fe748e21243f8e8322c677a5525c569ae9cdbe9"
@@ -1335,6 +1342,11 @@
   version "3.53.5"
   resolved "https://registry.yarnpkg.com/@types/google.maps/-/google.maps-3.53.5.tgz#0f3010ab4eabe46721f3604462196975b640aab9"
   integrity sha512-HoRq4Te8J6krH7hj+TfdYepqegoKZCj3kkaK5gf+ySFSHLvyqYkDvkrtbcVJXQ6QBphQ0h1TF7p4J6sOh4r/zg==
+
+"@types/googlepay@^0.7.0":
+  version "0.7.5"
+  resolved "https://registry.yarnpkg.com/@types/googlepay/-/googlepay-0.7.5.tgz#b944cd0e4c49f4661c9b966cb45614eb7ae87a26"
+  integrity sha512-158egcRaqkMSpW6unyGV4uG4FpoCklRf3J5emCzOXSRVAohMfIuZ481JNvp4X6+KxoNjxWiGtMx5vb1YfQADPw==
 
 "@types/hoist-non-react-statics@^3.3.0", "@types/hoist-non-react-statics@^3.3.1":
   version "3.3.5"

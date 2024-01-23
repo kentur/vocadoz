@@ -1706,6 +1706,14 @@ h5 {
 
 }
 
+.google-pay-button {
+    width: 100%;
+}
+
+.google-pay-button.disabled button {
+    background-color: #3c4043;
+    cursor: unset;
+}
 @keyframes fadeInRight {
     0% {
         opacity: 0;

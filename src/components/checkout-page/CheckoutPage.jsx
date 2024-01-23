@@ -122,6 +122,8 @@ const CheckoutPage = () => {
     let currentLatLng = undefined;
     const [address, setAddress] = useState(undefined)
     const [paymenMethod, setPaymenMethod] = useState('')
+    const payPaymenMethodRef = useRef('')
+    const payPaymentResultRef = useRef('')
     const [numberOfDay, setDayNumber] = useState(getDayNumber(today))
     const [orderType, setOrderType] = useState('')
     const [couponDiscount, setCouponDiscount] = useState(null)
@@ -140,10 +142,13 @@ const CheckoutPage = () => {
     const [deliveryTip, setDeliveryTip] = useState(0)
     const [selected, setSelected] = useState('')
     const [paymentMethodDetails, setPaymentMethodDetails] = useState({})
-    const { method } = router.query;
-    const { mutate: offlineMutate, isLoading: offlinePaymentLoading } = useOfflinePayment();
-    const [offlineCheck, setOfflineCheck] = useState(false);
-    const { offLineWithPartial, offlinePaymentInfo } = useSelector((state) => state.offlinePayment);
+    const { method } = router.query
+    const { mutate: offlineMutate, isLoading: offlinePaymentLoading } =
+        useOfflinePayment()
+    const [offlineCheck, setOfflineCheck] = useState(false)
+    const { offLineWithPartial, offlinePaymentInfo } = useSelector(
+        (state) => state.offlinePayment
+    )
     const { data, refetch: refetchNotification } =
         useGetOrderPlaceNotification(orderId)
     const [enabled, setEnabled] = useState(cartList?.length ? true : false)
@@ -151,14 +156,13 @@ const CheckoutPage = () => {
         data: offlinePaymentOptions,
         isLoading: offlineOptionsLoading,
         refetch: OfflinePaymentRefetch,
-    } = useGetOfflinePaymentOptions({
-    })
+    } = useGetOfflinePaymentOptions({})
 
     useEffect(() => {
         OfflinePaymentRefetch()
     }, [])
     const { token } = useSelector((state) => state.userToken)
-    const { guestUserInfo } = useSelector((state) => state.guestUserInfo);
+    const { guestUserInfo } = useSelector((state) => state.guestUserInfo)
     const [subscriptionStates, subscriptionDispatch] = useReducer(
         subscriptionReducer,
         subscriptionsInitialState
@@ -186,9 +190,7 @@ const CheckoutPage = () => {
         digitAfterDecimalPoint = global.digit_after_decimal_point
     }
 
-    currentLatLng = JSON.parse(
-        window.localStorage.getItem('currentLatLng')
-    )
+    currentLatLng = JSON.parse(window.localStorage.getItem('currentLatLng'))
     const { data: zoneData } = useQuery(
         ['zoneId', location],
         async () => GoogleApi.getZoneId(currentLatLng),
@@ -209,7 +211,7 @@ const CheckoutPage = () => {
         data: restaurantData,
         isError,
         error,
-        refetch
+        refetch,
     } = useQuery(
         [`restaurant-details`],
         () =>
@@ -224,24 +226,24 @@ const CheckoutPage = () => {
         ['get-distance', restaurantData?.data, address],
         () => GoogleApi.distanceApi(restaurantData?.data, address),
         {
-            onError: onErrorResponse
+            onError: onErrorResponse,
         }
-    );
+    )
     const tempDistance =
-        distanceData?.data?.rows?.[0]?.elements[0]?.distance?.value / 1000;
+        distanceData?.data?.rows?.[0]?.elements[0]?.distance?.value / 1000
 
     const { data: extraCharge, refetch: extraChargeRefetch } =
-        useGetVehicleCharge({ tempDistance });
+        useGetVehicleCharge({ tempDistance })
     useEffect(() => {
-        extraChargeRefetch();
-    }, [distanceData]);
+        extraChargeRefetch()
+    }, [distanceData])
     const handleChange = (event) => {
-        setDayNumber(event.target.value);
-    };
+        setDayNumber(event.target.value)
+    }
     const { mutate: orderMutation, isLoading: orderLoading } = useMutation(
         'order-place',
         OrderApi.placeOrder
-    );
+    )
     const userOnSuccessHandler = (res) => {
         dispatch(setUser(res?.data))
         dispatch(setWalletAmount(res?.data?.wallet_balance))
@@ -308,14 +310,14 @@ const CheckoutPage = () => {
         setTotalOrderAmount(total_order_amount)
     }, [cartList, couponDiscount, taxAmount])
 
-
     const handleOfflineOrder = () => {
         const offlinePaymentData = {
-            ...offlinePaymentInfo, order_id: orderId
+            ...offlinePaymentInfo,
+            order_id: orderId,
         }
-        dispatch(setOfflineInfoStep(3));
-        dispatch(setOrderDetailsModal(true));
-        offlineMutate(offlinePaymentData);
+        dispatch(setOfflineInfoStep(3))
+        dispatch(setOrderDetailsModal(true))
+        offlineMutate(offlinePaymentData)
         // setOrderId(orderId)
     }
 
@@ -323,12 +325,9 @@ const CheckoutPage = () => {
     //offlinePaymentInfo
     useEffect(() => {
         if (offlineCheck) {
-            handleOfflineOrder();
+            handleOfflineOrder()
         }
-    }, [orderId]);
-
-
-
+    }, [orderId])
 
     const handleProductList = (productList, totalQty) => {
         return productList?.map((cart) => {
@@ -348,8 +347,8 @@ const CheckoutPage = () => {
                     }
                 }),
                 item_type: cart?.available_date_starts
-                    ? "AppModelsItemCampaign"
-                    : "AppModelsItem",
+                    ? 'AppModelsItemCampaign'
+                    : 'AppModelsItem',
                 item_id: cart?.id,
                 item_campaign_id: cart?.available_date_starts ? cart?.id : null,
 
@@ -377,26 +376,34 @@ const CheckoutPage = () => {
             subscriptionStates.endDate,
             subscriptionStates.days
         )
-        const isDigital =
+        const paymentMethodUsed =
             paymenMethod !== 'cash_on_delivery' &&
-                paymenMethod !== 'wallet' &&
-                paymenMethod !== 'offline_payment' &&
-                paymenMethod !== ''
+            paymenMethod !== 'wallet' &&
+            paymenMethod !== 'offline_payment' &&
+            paymenMethod !== ''
                 ? 'digital_payment'
-                : paymenMethod
+                : payPaymenMethodRef.current ?? paymenMethod
 
         return {
             cart: carts,
             ...address,
             schedule_at: scheduleAt === 'now' ? null : scheduleAt,
             //additional address
-            address_type: !getToken() ? guestUserInfo?.address_type : additionalInformationStates?.addressType,
-            road: !getToken() ? guestUserInfo?.road : additionalInformationStates?.streetNumber,
-            house: !getToken() ? guestUserInfo?.house : additionalInformationStates?.houseNumber,
-            floor: !getToken() ? guestUserInfo?.floor : additionalInformationStates?.floor,
+            address_type: !getToken()
+                ? guestUserInfo?.address_type
+                : additionalInformationStates?.addressType,
+            road: !getToken()
+                ? guestUserInfo?.road
+                : additionalInformationStates?.streetNumber,
+            house: !getToken()
+                ? guestUserInfo?.house
+                : additionalInformationStates?.houseNumber,
+            floor: !getToken()
+                ? guestUserInfo?.floor
+                : additionalInformationStates?.floor,
             order_note: additionalInformationStates?.note,
             partial_payment: usePartialPayment,
-            payment_method: isDigital,
+            payment_method: paymentMethodUsed,
             order_type: orderType,
             restaurant_id: restaurantData?.data?.id,
             coupon_code: couponDiscount?.code,
@@ -421,19 +428,22 @@ const CheckoutPage = () => {
             contact_person_name: guestUserInfo?.contact_person_name,
             contact_person_number: guestUserInfo?.contact_person_number,
             is_guest: token ? 0 : 1,
-            is_buy_now: page === "campaign" ? 1 : 0,
-            cart_id: page === "campaign" ? cartList[0]?.cartItemId : null,
+            is_buy_now: page === 'campaign' ? 1 : 0,
+            cart_id: page === 'campaign' ? cartList[0]?.cartItemId : null,
             unavailable_item_note,
             delivery_instruction,
+            google_pay_payment_result:
+                paymentMethodUsed === 'googlepay'
+                    ? payPaymentResultRef.current
+                    : null,
+            apple_pay_payment_result:
+                paymentMethodUsed === 'applepay'
+                    ? payPaymentResultRef.current
+                    : null,
         }
     }
 
-    const orderPlaceMutation = (
-        carts,
-        handleSuccess,
-        orderMutation,
-        productList
-    ) => {
+    const orderPlaceMutation = (carts, handleSuccess, productList) => {
         let order = handleOrderMutationObject(carts, productList)
         orderMutation(order, {
             onSuccess: handleSuccess,
@@ -471,7 +481,15 @@ const CheckoutPage = () => {
                                 toast.success(response?.data?.message)
                                 const newBaseUrl = baseUrl.substring(0, 31)
                                 const callBackUrl = `${window.location.origin}/order`
-                                const url = `${window.location.origin}/payment-mobile?order_id=${response?.data?.order_id}&customer_id=${customerData?.data?.id ? customerData?.data?.id : getGuestId()}&callback=${callBackUrl}`
+                                const url = `${
+                                    window.location.origin
+                                }/payment-mobile?order_id=${
+                                    response?.data?.order_id
+                                }&customer_id=${
+                                    customerData?.data?.id
+                                        ? customerData?.data?.id
+                                        : getGuestId()
+                                }&callback=${callBackUrl}`
                             } else if (paymenMethod === 'wallet') {
                                 toast.success(response?.data?.message)
                                 setOrderSuccess(true)
@@ -486,12 +504,15 @@ const CheckoutPage = () => {
                         orderPlaceMutation(
                             carts,
                             handleSuccessSecond,
-                            orderMutation,
                             productList
                         )
                     }
                 }
-            } else if (paymenMethod === 'cash_on_delivery') {
+            } else if (
+                paymenMethod === 'cash_on_delivery' ||
+                paymenMethod === 'googlepay' ||
+                paymenMethod === 'applepay'
+            ) {
                 const totalMaxCodAmount = maxCodAmount(
                     restaurantData,
                     global,
@@ -506,7 +527,7 @@ const CheckoutPage = () => {
                 if (
                     totalMaxCodAmount !== 0 &&
                     Number.parseInt(totalAmountOrSubTotalAmount) >
-                    Number.parseInt(totalMaxCodAmount)
+                        Number.parseInt(totalMaxCodAmount)
                 ) {
                     toast.error(
                         `${text1} ${getAmount(
@@ -525,52 +546,59 @@ const CheckoutPage = () => {
                     let totalQty = 0
                     let carts = handleProductList(productList, totalQty)
                     if (carts?.length > 0) {
-                        orderPlaceMutation(
-                            carts,
-                            handleSuccessCod,
-                            orderMutation,
-                            productList
-                        )
+                        orderPlaceMutation(carts, handleSuccessCod, productList)
                     }
                 }
             } else if (paymenMethod === 'offline_payment') {
                 let totalQty = 0
-                let carts = handleProductList(productList, totalQty);
+                let carts = handleProductList(productList, totalQty)
                 const handleSuccessOffline = (response) => {
                     // setOrderId(response?.data?.order_id)
                     if (response?.data) {
-                        toast.success(response?.data?.message);
-                        setOfflineCheck(true);
-                        setOrderId(response?.data?.order_id);
-                        setOrderSuccess(true);
+                        toast.success(response?.data?.message)
+                        setOfflineCheck(true)
+                        setOrderId(response?.data?.order_id)
+                        setOrderSuccess(true)
                     }
                 }
                 if (carts?.length > 0) {
-                    orderPlaceMutation(
-                        carts,
-                        handleSuccessOffline,
-                        orderMutation,
-                        productList
-                    )
+                    orderPlaceMutation(carts, handleSuccessOffline, productList)
                 }
-
-            }
-            else {
+            } else {
                 let totalQty = 0
                 let carts = handleProductList(productList, totalQty)
                 const handleSuccess = (response) => {
+                    if (response.status === 203) {
+                        const errors = response.data.errors
+                        errors?.forEach((item) =>
+                            toast.error(item.message, {
+                                position: 'bottom-right',
+                            })
+                        )
+                        return
+                    }
                     const payment_platform = 'web'
                     const page = 'order'
                     setOrderId(response?.data?.order_id)
                     if (response?.data) {
-                        if (paymenMethod !== 'cash_on_delivery') {
+                        if (
+                            paymenMethod !== 'cash_on_delivery' &&
+                            payPaymenMethodRef.current !== 'googlepay' &&
+                            payPaymenMethodRef.current !== 'applepay'
+                        ) {
                             const newBaseUrl = baseUrl.substring(0, 31)
                             const callBackUrl = token
-                                // ? `${window.location.origin}/order-history/${response?.data?.order_id}`
-                                ? `${window.location.origin}/info?page=${page}`
-                                : `${window.location.origin}/order`;
+                                ? // ? `${window.location.origin}/order-history/${response?.data?.order_id}`
+                                  `${window.location.origin}/info?page=${page}`
+                                : `${window.location.origin}/order`
                             //const callBackUrl = `${window.location.origin}/order`
-                            const url = `${baseUrl}/payment-mobile?order_id=${response?.data?.order_id}&customer_id=${customerData?.data?.id ? customerData?.data?.id : getGuestId()}&payment_platform=${payment_platform}&callback=${callBackUrl}&payment_method=${paymenMethod}`
+                            const url = `${baseUrl}/payment-mobile?order_id=${
+                                response?.data?.order_id
+                            }&customer_id=${
+                                customerData?.data?.id
+                                    ? customerData?.data?.id
+                                    : getGuestId()
+                            }&payment_platform=${payment_platform}&callback=${callBackUrl}&payment_method=${paymenMethod}`
                             Router.push(url)
                         } else {
                             toast.success(response?.data?.message)
@@ -579,12 +607,7 @@ const CheckoutPage = () => {
                     }
                 }
                 if (carts?.length > 0) {
-                    orderPlaceMutation(
-                        carts,
-                        handleSuccess,
-                        orderMutation,
-                        productList
-                    )
+                    orderPlaceMutation(carts, handleSuccess, productList)
                 }
             }
         } else {
@@ -595,7 +618,14 @@ const CheckoutPage = () => {
             )
         }
     }
-    const placeOrder = () => {
+    const placeOrder = (options) => {
+        const { payPaymentMethod, payPaymentResult } = options
+
+        if (payPaymentMethod && payPaymentResult) {
+            payPaymenMethodRef.current = payPaymentMethod
+            payPaymentResultRef.current = payPaymentResult
+        }
+
         localStorage.setItem('access', totalAmount)
         if (page !== 'campaign') {
             if (subscriptionStates.order === '1') {
@@ -637,14 +667,16 @@ const CheckoutPage = () => {
                                 } else {
                                     toast(
                                         t(
-                                            `Your chosen delivery ${subscriptionStates?.days
-                                                ?.length > 1
-                                                ? 'days'
-                                                : 'day'
-                                            } and ${subscriptionStates?.days
-                                                ?.length > 1
-                                                ? 'times'
-                                                : 'time'
+                                            `Your chosen delivery ${
+                                                subscriptionStates?.days
+                                                    ?.length > 1
+                                                    ? 'days'
+                                                    : 'day'
+                                            } and ${
+                                                subscriptionStates?.days
+                                                    ?.length > 1
+                                                    ? 'times'
+                                                    : 'time'
                                             } must be in between start date and end date`
                                         ),
                                         {
@@ -673,7 +705,9 @@ const CheckoutPage = () => {
                     }
                 }
                 if (subscriptionStates.type === 'monthly') {
-                    let startDate = moment(subscriptionStates.startDate).format('D')
+                    let startDate = moment(subscriptionStates.startDate).format(
+                        'D'
+                    )
                     let endDate = moment(subscriptionStates.endDate).format('D')
                     if (subscriptionStates.days.length > 0) {
                         const isInsideChoseDate = subscriptionStates.days.every(
@@ -688,12 +722,14 @@ const CheckoutPage = () => {
                         } else {
                             toast(
                                 t(
-                                    `Your chosen delivery ${subscriptionStates?.days?.length > 1
-                                        ? 'days'
-                                        : 'day'
-                                    } and ${subscriptionStates?.days?.length > 1
-                                        ? 'times'
-                                        : 'time'
+                                    `Your chosen delivery ${
+                                        subscriptionStates?.days?.length > 1
+                                            ? 'days'
+                                            : 'day'
+                                    } and ${
+                                        subscriptionStates?.days?.length > 1
+                                            ? 'times'
+                                            : 'time'
                                     } must be in between start date and end date`
                                 ),
                                 {

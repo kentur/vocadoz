@@ -285,15 +285,16 @@ const OrderCalculation = (props) => {
                         </Grid>
                     </>
                 )}
-                {(restaurantData &&
-                    restaurantData?.data &&
-                    restaurantData?.data?.tax) ? (
+                {restaurantData &&
+                restaurantData?.data &&
+                restaurantData?.data?.tax ? (
                     <>
                         <Grid item md={8} xs={8}>
-                            {`${vat} (${restaurantData?.data?.tax}% ${global?.tax_included === 1
-                                ? t('Included')
-                                : t('Excluded')
-                                })`}
+                            {`${vat} (${restaurantData?.data?.tax}% ${
+                                global?.tax_included === 1
+                                    ? t('Included')
+                                    : t('Excluded')
+                            })`}
                         </Grid>
                         <Grid item md={4} xs={4} align="right">
                             <Stack
@@ -303,9 +304,7 @@ const OrderCalculation = (props) => {
                                 spacing={0.5}
                             >
                                 <Typography variant="h4">
-                                    {global?.tax_included === 1
-                                        ? ''
-                                        : '(+)'}
+                                    {global?.tax_included === 1 ? '' : '(+)'}
                                 </Typography>
                                 <Typography variant="h4">
                                     {restaurantData &&
@@ -324,9 +323,9 @@ const OrderCalculation = (props) => {
                         </Grid>
                     </>
                 ) : null}
-                {(Number.parseInt(global?.dm_tips_status) === 1 &&
-                    orderType !== 'take_away' &&
-                    deliveryTip > 0) ? (
+                {Number.parseInt(global?.dm_tips_status) === 1 &&
+                orderType !== 'take_away' &&
+                deliveryTip > 0 ? (
                     <>
                         <Grid item md={8} xs={8}>
                             {t('Deliveryman tips')}
@@ -338,9 +337,7 @@ const OrderCalculation = (props) => {
                                 justifyContent="flex-end"
                                 spacing={0.5}
                             >
-                                <Typography variant="h4">
-                                    {'(+)'}
-                                </Typography>
+                                <Typography variant="h4">{'(+)'}</Typography>
                                 <Typography variant="h4">
                                     {getAmount(
                                         deliveryTip,
@@ -389,8 +386,10 @@ const OrderCalculation = (props) => {
                         {orderType === 'delivery' ? (
                             couponDiscount ? (
                                 couponDiscount?.coupon_type ===
-                                    'free_delivery' ? (
-                                    <Typography fontWeight="700">{t('Free')}</Typography>
+                                'free_delivery' ? (
+                                    <Typography fontWeight="700">
+                                        {t('Free')}
+                                    </Typography>
                                 ) : (
                                     restaurantData && handleDeliveryFee()
                                 )
@@ -398,7 +397,9 @@ const OrderCalculation = (props) => {
                                 restaurantData && handleDeliveryFee()
                             )
                         ) : (
-                            <Typography fontWeight="700">{t('Free')}</Typography>
+                            <Typography fontWeight="700">
+                                {t('Free')}
+                            </Typography>
                         )}
                         {/*{couponDiscount ? (*/}
                         {/*    couponDiscount?.coupon_type === 'free_delivery' ? (*/}
@@ -492,8 +493,8 @@ const OrderCalculation = (props) => {
                     </Grid>
                 </TotalGrid>
                 {(usePartialPayment || offLineWithPartial) &&
-                    totalAmount > walletBalance &&
-                    subscriptionStates?.order !== '1' ? (
+                totalAmount > walletBalance &&
+                subscriptionStates?.order !== '1' ? (
                     <>
                         <Grid item md={8} xs={8}>
                             {t('Paid by wallet')}
@@ -519,8 +520,8 @@ const OrderCalculation = (props) => {
                     </>
                 ) : null}
                 {(usePartialPayment || offLineWithPartial) &&
-                    totalAmount > walletBalance &&
-                    subscriptionStates?.order !== '1' ? (
+                totalAmount > walletBalance &&
+                subscriptionStates?.order !== '1' ? (
                     <>
                         <Grid item md={8} xs={8}>
                             {t('Due Payment')}
@@ -553,6 +554,7 @@ const OrderCalculation = (props) => {
                         offlinePaymentLoading={offlinePaymentLoading}
                         offlineFormRef={offlineFormRef}
                         page={page}
+                        totalAmount={totalAmount}
                         paymentMethodDetails={paymentMethodDetails}
                     />
                 </Grid>
