@@ -19,6 +19,7 @@ import Router, { useRouter } from 'next/router'
 import toast from 'react-hot-toast'
 import googlePaymentConfig from '../../../googlepay'
 import GooglePayButton from '@google-pay/button-react'
+import ApplePayButton from '../../apple-pay/ApplePayButton'
 
 const PlaceOrder = (props) => {
     const {
@@ -137,19 +138,22 @@ const PlaceOrder = (props) => {
                                 countryCode: 'US',
                             },
                         }}
-                        onLoadPaymentData={(goolgePaymentRequest) => {
-                            const opts = {
-                                payPaymentMethod: 'googlepay',
-                                payPaymentResult: goolgePaymentRequest,
-                            }
-                            placeOrder(opts)
-                        }}
+                        onLoadPaymentData={(goolgePaymentRequest) => {}}
                         onClick={(e) => {
                             if (!checked || orderLoading) {
                                 e.preventDefault()
                             }
                         }}
                         buttonSizeMode="fill"
+                    />
+                    <ApplePayButton
+                        onPaymentAuthorized={(applePaymentRequest) => {
+                            const opts = {
+                                payPaymentMethod: 'applepay',
+                                payPaymentResult: applePaymentRequest,
+                            }
+                            placeOrder(opts)
+                        }}
                     />
                     <LoadingButton
                         type="submit"

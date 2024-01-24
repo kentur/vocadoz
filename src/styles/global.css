@@ -1714,6 +1714,12 @@ h5 {
     background-color: #3c4043;
     cursor: unset;
 }
+apple-pay-button {
+    --apple-pay-button-width: 140px;
+    --apple-pay-button-height: 30px;
+    --apple-pay-button-border-radius: 5px;
+    --apple-pay-button-padding: 5px 0px;
+}
 @keyframes fadeInRight {
     0% {
         opacity: 0;

@@ -35,6 +35,8 @@ class CustomDocument extends Document {
                     {/*    crossOrigin="anonymous"*/}
                     {/*    src="https://connect.facebook.net/en_US/sdk.js"*/}
                     {/*/>*/}
+                    {/* apple pay  */}
+                    <script src="https://applepay.cdn-apple.com/jsapi/v1.1.0/apple-pay-sdk.js" />
                 </Head>
                 <body>
                     <Main />
