@@ -1,19 +1,24 @@
-import React, { useEffect } from 'react'
+import { Button } from '@mui/material'
+import React, { useEffect, useState } from 'react'
+import ApplePayIcon from './ApplePayIcon'
 
 const ApplePayButton = (onPaymentAuthorized) => {
+    const [isButtonAvailable, setisButtonAvailable] = useState(false)
     useEffect(() => {
         if (window.ApplePaySession) {
-            // Set up Apple Pay session and handlers here
-            // Refer to the Apple Pay JS API documentation for details
-        } else {
-            console.error('Apple Pay is not supported on this device.')
+            var merchantIdentifier = 'example.com.store'
+            var promise =
+                ApplePaySession.canMakePaymentsWithActiveCard(
+                    merchantIdentifier
+                )
+            promise.then((canMakePayments) => {
+                setisButtonAvailable(canMakePayments)
+            })
         }
     }, [])
 
     const startApplePaySession = async () => {
         if (window.ApplePaySession) {
-            const appleSession = window.ApplePaySession
-
             // Define ApplePayPaymentRequest
             const request = {
                 countryCode: 'US',
@@ -27,19 +32,22 @@ const ApplePayButton = (onPaymentAuthorized) => {
                 },
             }
 
-            const session = new appleSession(6, request)
+            const session = new window.ApplePaySession(3, request)
+            console.log(session, 'session')
 
             session.onvalidatemerchant = async function (event) {
-                try {
-                    const { data } = await getApplePay()
+                console.log(event, 'onvalidatemerchant')
+                // try {
+                //     const { data } = await getApplePay()
 
-                    session.completeMerchantValidation(data)
-                } catch (error) {
-                    console.log(error)
-                }
+                //     session.completeMerchantValidation(data)
+                // } catch (error) {
+                //     console.log(error)
+                // }
             }
 
             session.onpaymentauthorized = async function (event) {
+                console.log(event, 'onpaymentauthorized')
                 onPaymentAuthorized(event)
             }
 
@@ -47,16 +55,19 @@ const ApplePayButton = (onPaymentAuthorized) => {
         }
     }
 
-    return (
-        window.ApplePaySession && (
-            <button onClick={startApplePaySession}>
-                <apple-pay-button
-                    buttonstyle="black"
-                    type="plain"
-                    locale="en-US"
-                ></apple-pay-button>
-            </button>
-        )
+    return window.ApplePaySession && isButtonAvailable ? (
+        <Button
+            variant="outline"
+            sx={{
+                width: '100%',
+                background: 'black',
+            }}
+            onClick={startApplePaySession}
+        >
+            <ApplePayIcon />
+        </Button>
+    ) : (
+        <></>
     )
 }
 

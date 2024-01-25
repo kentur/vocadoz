@@ -1714,11 +1714,37 @@ h5 {
     background-color: #3c4043;
     cursor: unset;
 }
-apple-pay-button {
-    --apple-pay-button-width: 140px;
-    --apple-pay-button-height: 30px;
-    --apple-pay-button-border-radius: 5px;
-    --apple-pay-button-padding: 5px 0px;
+
+span#applepay_icon {
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-synthesis: none;
+    justify-content: center;
+    position: relative;
+    margin: 0;
+    box-sizing: var(--apple-pay-button-box-sizing, content-box);
+    min-height: 30px;
+    height: calc(30px);
+    min-width: 140px;
+    width: 100%;
+    border-radius: 5px;
+    -moz-font-feature-settings: kern;
+    -moz-osx-font-smoothing: 'grayscale';
+    -webkit-font-smoothing: antialiased;
+}
+
+span#applepay_icon>svg {
+    max-width: 100%;
+    min-height: 24px;
+    min-width: 50%;
+    height: 100%;
+    transform: translateZ(0) scale(1.0, 1.0);
+}
+
+#svg-text.hidden,
+#svg-logo.hidden {
+    display: none;
 }
 @keyframes fadeInRight {
     0% {
